@@ -14,3 +14,8 @@ class CreateListParcels(generics.ListCreateAPIView):
     serializer_class = ParcelsSerializer
     pagination_class = ParcelsPagination
     filterset_class = ParcelsFilter
+    
+    
+class ParcelDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Parcel.objects.all()
+    serializer_class = ParcelsSerializer
