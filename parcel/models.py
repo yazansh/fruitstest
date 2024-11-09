@@ -1,5 +1,7 @@
 from django.db import models
 
+#from offer.models import Offer
+
 # Create your models here.
 
 class LandUseGroup(models.TextChoices):
@@ -15,3 +17,6 @@ class Parcel(models.Model):
     land_use_group = models.CharField(max_length=100, choices=LandUseGroup.choices)
     description = models.CharField(max_length=200, default='', blank=True)
     creation_date = models.DateField(auto_now_add=True)
+    
+    @property
+    def offers(self): return self.offer_set.all()

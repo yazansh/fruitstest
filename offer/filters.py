@@ -1,15 +1,21 @@
 import django_filters
+from django_filters import BaseInFilter, NumberFilter
 
 from .models import Offer
 
 
+class NumberInFilter(BaseInFilter, NumberFilter):
+    pass
+
 class OffersFilter(django_filters.FilterSet):
-    brokername = django_filters.CharFilter(field_name='broker__name', lookup_expr='icontains')
-    parcelname = django_filters.CharFilter(field_name='parcel__name', lookup_expr='icontains')
+    broker = django_filters.NumberFilter(field_name='broker__id')
+    parcels = NumberInFilter(field_name='parcels__id', lookup_expr='in')
     
     class Meta:
         model = Offer
         fields = {
             'title':['icontains'],
-            'description':['icontains']
+            'description':['icontains'],
+            'broker': ['exact'],
+            'parcels': ['in']
         }

@@ -9,7 +9,7 @@ from .serializers import OffersSerializer
 
 
 class CreateListOffers(generics.ListCreateAPIView):
-    queryset = Offer.objects.all()
+    queryset = Offer.objects.all().order_by('-id')
     filterset_class = OffersFilter
     pagination_class = OffersPagination
     serializer_class = OffersSerializer
