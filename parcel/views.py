@@ -11,7 +11,7 @@ from parcel.filters import ParcelsFilter
 
 class CreateListParcels(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Parcel.objects.all()
+    queryset = Parcel.objects.all().order_by('-id')
     serializer_class = ParcelsSerializer
     pagination_class = ParcelsPagination
     filterset_class = ParcelsFilter
