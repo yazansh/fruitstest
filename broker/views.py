@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Broker
 from .paginations import BrokersPagination
@@ -10,6 +10,7 @@ from .serializers import BrokersSerializer
 
 
 class CreateListBrokers(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Broker.objects.all()
     pagination_class = BrokersPagination
     filterset_class = BrokersFilter
@@ -17,5 +18,6 @@ class CreateListBrokers(generics.ListCreateAPIView):
     
     
 class BrokerDetails(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Broker.objects.all()
     serializer_class = BrokersSerializer
