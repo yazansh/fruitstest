@@ -63,7 +63,13 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': False,
 }
 
-
+# Celery settings
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,11 +108,11 @@ WSGI_APPLICATION = 'fruitstest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'NAME': 'parcelsDB',
+        'USER': 'postgres',
+        'PASSWORD': 'D.kaoadv0223',
+        'HOST': 'db',  # 'db' is the name of the service in your docker-compose file
+        'PORT': '5432',
     }
 }
 
