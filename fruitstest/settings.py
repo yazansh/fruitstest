@@ -110,7 +110,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'parcelsDB',
         'USER': 'postgres',
-        'PASSWORD': 'D.kaoadv0223',
+        'PASSWORD': 'Fruits.123',
         'HOST': 'db',  # 'db' is the name of the service in your docker-compose file
         'PORT': '5432',
     }
