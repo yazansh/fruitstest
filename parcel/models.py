@@ -20,3 +20,6 @@ class Parcel(models.Model):
     
     @property
     def offers(self): return self.offer_set.all()
+    
+    def __str__(self):
+        return f"{self.neighborhood} Block {self.block_number} Subdivision {self.subdivision_number}"
