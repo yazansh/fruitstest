@@ -15,8 +15,8 @@ app.autodiscover_tasks()
 
 # Celery Beat Schedule
 app.conf.beat_schedule = {
-    'say_hello_every_minute': {
-        'task': 'offer.tasks.check_parcels',
-        'schedule': crontab(minute='*/1'),  # Run every minute
+    'monitor_parcel_combinations_every_10_minutes': {
+        'task': 'offer.tasks.monitor_parcel_count',
+        'schedule': crontab(minute='*/10'),  # Run every minute
     },
 }
