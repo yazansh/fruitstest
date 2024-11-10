@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: parcelsDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Fruits.123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - "6379:6379"
+
+  web:
+    build:
+      context: .
+    command: >
+      sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build:
+      context: .
+    command: celery -A fruitstest worker --loglevel=INFO
+    volumes:
+      - .:/code
+    user: celery
+    depends_on:
+      - db
+      - redis
+
+  celery-beat:
+    build:
+      context: .
+    command: celery -A fruitstest beat --loglevel=INFO
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgres_data:
